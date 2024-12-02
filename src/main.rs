@@ -1,8 +1,11 @@
 extern crate core;
 
 mod lists;
+mod reactor;
+
 use std::env;
 use std::fs;
+use crate::lists::get_list_similarities;
 
 fn fact(n: i32) -> i32 {
     if n <= 0 {
@@ -75,5 +78,6 @@ fn main() {
     println!("{:?}", array);*/
 
 
-    lists::lists();
+    //lists::lists();
+    reactor::print_answer();
 }

@@ -30,11 +30,7 @@ pub(crate) fn lists(){
     arr1.sort();
     arr2.sort();
     println!("{}", get_array_distance(&arr1, &arr2));
-    let mut arr:Vec<i32> = vec![10, 69, 420, 104, 123, 4 , 12, 12];
-    println!("{:?}",arr);
-    quick_sort(&mut arr, 0, 7);
-    println!("{:?}",arr);
-    println!("{}", get_array_distance(&vec![3, 4, 1, 2, 3, 3], &vec![4, 3, 5, 3, 9, 3]));
+    println!("{}", get_list_similarities(arr1, arr2));
 }
 /*
 fn quick_sort(arr: &mut Vec<i16>, begin:i16, end:i16) {
@@ -75,6 +71,20 @@ fn quick_sort(arr: &mut Vec<i32>, begin: usize, end: usize) {
 
     // Sort right partition (pivot_idx + 1 to avoid infinite recursion)
     quick_sort(arr, pivot_idx + 1, end);
+}
+
+pub fn get_list_similarities(arr1: Vec<i32>, arr2: Vec<i32>) -> i32{
+    let mut sim = 0;
+    for num in arr1 {
+        let mut occurances = 0;
+        for num2 in &arr2 {
+            if num == *num2 {
+                occurances += 1;
+            }
+        }
+        sim += num * occurances;
+    }
+    return sim;
 }
 
 fn partition(arr: &mut Vec<i32>, begin: usize, end: usize) -> usize {
