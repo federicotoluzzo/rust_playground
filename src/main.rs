@@ -3,6 +3,7 @@ extern crate core;
 mod lists;
 mod reactor;
 mod corrupt;
+mod xmas;
 
 use std::env;
 use std::fs;
@@ -81,5 +82,5 @@ fn main() {
 
     //lists::lists();
     //reactor::print_answer();
-    corrupt::print_answer();
+    xmas::print_answer();
 }
