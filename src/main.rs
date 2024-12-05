@@ -4,6 +4,7 @@ mod lists;
 mod reactor;
 mod corrupt;
 mod xmas;
+mod ordering;
 
 use std::env;
 use std::fs;
@@ -82,5 +83,6 @@ fn main() {
 
     //lists::lists();
     //reactor::print_answer();
-    xmas::print_answer();
+    //xmas::print_answer();
+    ordering::print_answer();
 }
