@@ -1,5 +1,38 @@
 use std::collections::{HashMap, HashSet};
 use std::fs;
+use std::iter::Map;
+use rand::prelude::*;
+
+fn bogosort(mut arr: &mut Vec<i32>, rules:HashMap<i32, HashSet<i32>>){
+    let mut vec = arr.clone();
+    let mut arrcpy = arr.clone();
+    while(!is_ordered(vec.clone(), rules.clone())){
+        vec.clear();
+        arrcpy = arr.clone();
+        while !arrcpy.is_empty(){
+            let rand = rand::random_range(0..arrcpy.len());
+            let num = arrcpy[rand];
+            vec.push(num);
+            arrcpy.remove(rand);
+        }
+    }
+    arr.clear();
+    arr.append(&mut vec);
+    println!("SUCCESS");
+}
+
+fn is_ordered(vec:Vec<i32>, rules:HashMap<i32, HashSet<i32>>) -> bool{
+    for i in 0..vec.len() {
+        if rules.contains_key(&vec[i]) {
+            for j in 0..i {
+                if(rules[&vec[i]].contains(&vec[j])) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 
 pub fn print_answer() {
     let mut all:String = fs::read_to_string("ordering.txt").unwrap();
@@ -35,7 +68,7 @@ pub fn print_answer() {
         nums.push(row);
     }
     let mut valid_pages = Vec::new();
-    for something in nums {
+    for something in nums.clone() {
         let mut flag = true;
         for i in 0..something.len() {
             if map.contains_key(&something[i]) {
@@ -57,4 +90,14 @@ pub fn print_answer() {
     }
 
     println!("{}", sum);
+
+    let mut sum2 = 0;
+    for mut something in nums{
+        bogosort(&mut something, map.clone());
+        println!("{:?}", something);
+        if(something.len()>=3){
+            sum2 += something[something.len() / 2];
+        }
+    }
+    println!("{}", sum2);
 }
